@@ -181,18 +181,24 @@ ViewData
   
 ViewData 및 레이아웃
   ----------
+    
+  ``` CSHTML
   @page
 @model RazorPagesMovie.Pages.Movies.IndexModel
 
   @{
       ViewData["Title"] = "Index";
   }
+    
+  ```
+    
   강조 표시된 이전 태그는 C#으로 전환되는 Razor의 예제입니다. { 및 } 문자로 C# 코드 블록을 묶습니다.
 
 PageModel 기본 클래스에는 데이터를 뷰에 전달하는 데 사용할 수 있는 ViewData 사전 속성이 있습니다. ViewData 패턴을 사용하여 개체가 ViewData 사전에 추가됩니다. 이전 샘플에서는 Title 속성이 ViewData 사전에 추가됩니다.
 
 Title 속성은 Title 파일에서 사용됩니다. 다음 태그는 _Layout.cshtml 파일의 처음 몇 줄을 표시합니다.
   
+  ```CSHTML
   <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -201,12 +207,16 @@ Title 속성은 Title 파일에서 사용됩니다. 다음 태그는 _Layout.csh
     <title>@ViewData["Title"] - Movie</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
   
+  ```
+    
   @*Markup removed for brevity.*@ 줄은 Razor 주석입니다. HTML 주석 <!-- -->과 달리 Razor 주석은 클라이언트에 전송되지 않습니다. 
   자세한 내용은 [MDN 웹 문서: HTML 시작](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/Getting_started#HTML_comments)을 참조하세요.
   
   레이아웃 업데이트
   ----------
     1. <title> 파일의 <title> 요소를 변경하여 PagesMovie 대신 Movie를 표시합니다.
+    
+  ``` CSHTML
   <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,11 +224,21 @@ Title 속성은 Title 파일에서 사용됩니다. 다음 태그는 _Layout.csh
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Movie</title>
   
+  ```
+    
     2. Pages/Shared/_Layout.cshtml 파일에서 다음 앵커 요소를 찾습니다.
+    
+    
+  ``` CSHTML
   <a class="navbar-brand" asp-area="" asp-page="/Index">RazorPagesMovie</a>
     
+  ```
     3. 이전 요소를 다음 태그로 바꿉니다.
+    
+  ``` CSHTML
   <a class="navbar-brand" asp-page="/Movies/Index">RpMovie</a>
+    
+  ```
   이전 앵커 요소는 태그 도우미입니다. 이 경우에는 앵커 태그 도우미입니다. 
   asp-page="/Movies/Index" 태그 도우미 특성 및 값으로 /Movies/IndexRazor 페이지의 링크를 만듭니다. 
   sp-area 특성 값이 비어 있으므로 영역은 링크에서 사용되지 않습니다. 자세한 내용은 영역을 참조하세요.
@@ -236,10 +256,12 @@ Title 속성은 Title 파일에서 사용됩니다. 다음 태그는 _Layout.csh
  
  Layout 속성은 Layout 파일에서 설정됩니다.
   
+  ```CSHTML
   @{
     Layout = "_Layout";
 }
   
+  ```
   
   이전 태그는 Pages 폴더 아래에 있는 모든 파일에 대한 레이아웃 파일을 Pages/Shared/_Layout.cshtml로 설정합니다. 자세한 내용은 [레이아웃](https://docs.microsoft.com/ko-kr/aspnet/core/razor-pages/?view=aspnetcore-6.0&tabs=visual-studio#layout)을 참조하세요.
     
@@ -247,6 +269,8 @@ Title 속성은 Title 파일에서 사용됩니다. 다음 태그는 _Layout.csh
   ----------
   Pages/Movies/Create.cshtml.cs 페이지 모델을 살펴봅니다.
   
+    
+  ``` C#
   using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesMovie.Models;
@@ -292,6 +316,8 @@ namespace RazorPagesMovie.Pages.Movies
 }
   
   
+  ```
+    
  OnGet 메서드는 페이지에 필요한 상태를 초기화합니다. 만들기 페이지에는 초기화할 상태가 없습니다. 따라서 Page가 반환됩니다. 
 자습서의 뒷부분에서 상태를 초기화하는 OnGet의 예가 나와 있습니다. Page 메서드는 Page 페이지를 렌더링하는 PageResult 개체를 만듭니다.
 
@@ -299,6 +325,8 @@ Movie 속성은 Movie 특성을 사용하여 [모델 바인딩](https://docs.mic
 
 페이지에 폼 데이터가 게시되면 OnPostAsync 메서드가 실행됩니다.
   
+    
+  ```C#
   public async Task<IActionResult> OnPostAsync()
 {
     if (!ModelState.IsValid)
@@ -312,6 +340,8 @@ Movie 속성은 Movie 특성을 사용하여 [모델 바인딩](https://docs.mic
     return RedirectToPage("./Index");
 }
   
+  ```
+    
   모델 오류가 있는 경우 폼과 게시된 모든 폼 데이터가 다시 표시됩니다. 
   대부분의 모델 오류는 폼이 게시되기 전에 클라이언트 쪽에서 catch할 수 있습니다. 
   예를 들어 데이터로 변환될 수 없는 날짜 필드에 대한 값을 게시하는 모델 오류가 발생할 수 있습니다. 
@@ -325,6 +355,9 @@ Movie 속성은 Movie 특성을 사용하여 [모델 바인딩](https://docs.mic
   Create Razor Page
   ----------
   Pages/Movies/Create.cshtml Page 파일을 살펴봅니다.
+    
+    
+  ``` CSHTML
   @page
 @model RazorPagesMovie.Pages.Movies.CreateModel
 
@@ -375,19 +408,23 @@ Movie 속성은 Movie 특성을 사용하여 [모델 바인딩](https://docs.mic
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
   
+  ```
+    
   ![image](https://user-images.githubusercontent.com/34930947/157788256-61de1e22-5b2b-4cf8-b884-3a6cc38e3946.png)
 
   <form method="post"> 요소는 <form method="post">입니다. 폼 태그 도우미에는 [위조 방지 토큰](https://docs.microsoft.com/ko-kr/aspnet/core/security/anti-request-forgery?view=aspnetcore-6.0)이 자동으로 포함됩니다.
     
     스캐폴딩 엔진은 ID를 제외하고 다음과 비슷한 모델에서 필드마다 Razor 태그를 만듭니다.
     
+  ```CSHTML
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="form-group">
     <label asp-for="Movie.Title" class="control-label"></label>
     <input asp-for="Movie.Title" class="form-control" />
     <span asp-validation-for="Movie.Title" class="text-danger"></span>
 </div>
-    
+   
+  ``` 
 [유효성 검사 태그 도우미](https://docs.microsoft.com/ko-kr/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-6.0#the-validation-tag-helpers) ( 및 <span asp-validation-for) 는 유효성 검사 오류를 표시합니다. 유효성 검사는 이 시리즈의 뒷부분에서 자세히 설명합니다.
 
 [레이블 태그 도우미](https://docs.microsoft.com/ko-kr/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-6.0#the-label-tag-helper)는 Title 속성에 대한 레이블 캡션 및 [for] 특성을 생성합니다.
