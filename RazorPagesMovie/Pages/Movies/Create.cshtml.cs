@@ -19,7 +19,10 @@ namespace RazorPagesMovie.Pages.Movies
         {
             _context = context;
         }
-
+        /// <summary>
+        /// 페이지에 필요한 상태를 초기화한다.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult OnGet()
         {
             return Page();

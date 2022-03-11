@@ -1,6 +1,10 @@
 ﻿@page
+@* Razor Page에서 PageModel 파생 클래스를 사용할 수 있게만듬*@
 @model RazorPagesMovie.Pages.Movies.IndexModel
 
+@*Page Model 기본 클래스에는 데이터를 뷰에 전달하는데 사용할 수 있는 ViewData 사전 속성이 있다.
+
+*@
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,6 +18,10 @@
     <thead>
         <tr>
             <th>
+                @*DisplayNameFor HTML도우미는 람다 식에서 참조되는 Title 속성을 검사하여 표시 이름을 확인.(계산이 아니라 검사된다)
+                    즉 model, model.movie또는 model.Movie[0]가 null이거나 비어 있을 경우 엑서스 위반이 없다.
+                    계산된 경우@Html.DisplayFor(modelItem => item.Title) 사용)
+                *@
                 @Html.DisplayNameFor(model => model.Movie[0].Title)
             </th>
             <th>
